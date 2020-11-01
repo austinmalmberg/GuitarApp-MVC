@@ -1,0 +1,20 @@
+﻿@model BrowseUsersViewModel
+
+@{
+    ViewBag.Title = "Users";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<ul class="list-group">
+@foreach (var user in Model.Users) {
+    <li class="list-group-item d-flex justify-content-between">
+        @user.UserName
+        <span>
+            @user.Id
+        </span>
+    </li>
+}
+</ul>
+
+</table>

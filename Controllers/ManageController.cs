@@ -65,6 +65,7 @@ namespace GuitarApp.Controllers
             var userId = User.Identity.GetUserId();
             var model = new IndexViewModel
             {
+                Email = await UserManager.GetEmailAsync(userId),
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),

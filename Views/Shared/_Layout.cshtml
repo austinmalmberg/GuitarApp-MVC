@@ -9,30 +9,23 @@
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
+    <div class="container">
+        <nav class="navbar navbar-expand-sm bg-light navbar-light">
+            <div class="container">
+                @Html.ActionLink("Setlist", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 @Html.Partial("_LoginPartial")
             </div>
-        </div>
+        </nav>
     </div>
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        <footer class="bg-light px-2 py-3">
+            <div class="container d-flex flex-column">
+                <p>@Html.ActionLink("About", "About", "Home", null, new { @class = "" })</p>
+                <p>@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "" })</p>
+            </div>
+            <p class="text-center">&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
 

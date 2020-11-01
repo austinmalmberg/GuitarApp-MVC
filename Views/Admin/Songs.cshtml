@@ -1,0 +1,25 @@
+﻿@model BrowseSongsViewModel
+
+@{
+    ViewBag.Title = "Songs";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", "Song")
+</p>
+
+<ul class="list-group">
+@foreach (var song in Model.Songs) {
+    <li class="list-group-item d-flex justify-content-between">
+        @Html.ActionLink(@song.Name, "Details", "Song", new { id = song.SongID }, null)
+        <span>
+        @Html.ActionLink("Update", "Update", "Song", new { id = song.SongID }, null) |
+        @Html.ActionLink("Delete", "Delete", "Song", new { id = song.SongID }, null)
+        </span>
+    </li>
+}
+</ul>
+
+</table>

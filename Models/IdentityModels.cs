@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Configuration;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -22,22 +23,13 @@ namespace GuitarApp.Models
     {
         public virtual DbSet<Song> Songs { get; set; }
         public virtual DbSet<Artist> Artists { get; set; }
-
+        public virtual DbSet<SetlistEntry> SetlistEntries { get; set; }
+        public virtual DbSet<Setlist> Setlists { get; set; }
         public ApplicationDbContext() : base("DefaultConnection", throwIfV1Schema: false) { }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<Artist>()
-                .HasMany(artist => artist.Songs);
-
-            modelBuilder.Entity<Song>()
-                .HasRequired(song => song.Artist)
-                .WithMany(artist => artist.Songs)
-                .HasForeignKey(song => song.ArtistID);
-
-            // TODO: implement logic for creating each model
         }
 
         public static ApplicationDbContext Create()
