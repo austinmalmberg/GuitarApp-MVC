@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace GuitarApp.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class AdminController : Controller
     {
         private ApplicationUserManager _userManager;
@@ -80,22 +81,22 @@ namespace GuitarApp.Controllers
 
         public ActionResult Artists(string nameSubstring)
         {
-            IList<Artist> artists = String.IsNullOrEmpty(nameSubstring) ?
-                ArtistRepository.Get().ToList() :
-                ArtistRepository.LookupByName(nameSubstring).ToList();
+            IEnumerable<Artist> artists = String.IsNullOrEmpty(nameSubstring) ?
+                ArtistRepository.Get() :
+                ArtistRepository.LookupByName(nameSubstring);
 
-            var model = new BrowseArtistsViewModel() { Artists = artists };
+            var model = new BrowseArtistsViewModel() { Artists = artists.ToList() };
 
             return View(model);
         }
 
         public ActionResult Songs(string songSubstring)
         {
-            IList<Song> songs = String.IsNullOrEmpty(songSubstring) ?
-                SongRepository.Get().ToList() :
-                SongRepository.LookupByName(songSubstring).ToList();
+            IEnumerable<Song> songs = String.IsNullOrEmpty(songSubstring) ?
+                SongRepository.Get() :
+                SongRepository.LookupByName(songSubstring);
 
-            var model = new BrowseSongsViewModel() { Songs = songs };
+            var model = new BrowseSongsViewModel() { Songs = songs.ToList() };
 
             return View(model);
         }

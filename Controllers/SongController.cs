@@ -36,7 +36,18 @@ namespace GuitarApp.Controllers
             }
         }
 
+        public ActionResult Browse()
+        {
+            var model = new BrowseSongsViewModel
+            {
+                Songs = SongRepository.Get().ToList()
+            };
+
+            return View(model);
+        }
+
         // GET: /Song/Create
+        [Authorize]
         public ActionResult Create(int? artistId, string artistName)
         {
             if (artistId != null)
@@ -50,6 +61,7 @@ namespace GuitarApp.Controllers
 
         // POST: /Song/Create
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateSongViewModel model)
         {
@@ -79,23 +91,53 @@ namespace GuitarApp.Controllers
         public ActionResult Details(int id)
         {
             var song = SongRepository.GetById(id);
+            if (song == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             var model = new SongDetailsViewModel
             {
                 SongID = song.SongID,
                 Name = song.Name,
+                ArtistID = song.Artist.ArtistID,
+                ArtistName = song.Artist.Name,
                 BaseTuning = song.BaseTuning,
                 CapoPosition = song.CapoPosition,
                 LastUpdated = song.LastUpdated,
+                Contributor = song.Contributor.UserName
             };
 
             // Return the song with the given id
             return View(model);
         }
 
-        // POST: /Song/Update/5
+        // GET: /Song/Edit/5
+        [Authorize]
+        public ActionResult Edit(int id)
+        {
+            Song song = SongRepository.GetById(id);
+            if (song == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var model = new EditSongViewModel
+            {
+                SongID = song.SongID,
+                Name = song.Name,
+                BaseTuning = song.BaseTuning,
+                CapoPosition = song.CapoPosition
+            };
+
+            return View(model);
+        }
+
+        // POST: /Song/Edit/5
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, EditSongViewModel model)
+        public ActionResult Edit(EditSongViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -116,11 +158,12 @@ namespace GuitarApp.Controllers
             SongRepository.Save();
 
             // Redirect to the updated song
-            return RedirectToAction("Details", "Song", new { id });
+            return RedirectToAction("Details", "Song", new { id = song.SongID });
         }
 
         // DELETE: /Song/Delete/5
         [HttpDelete]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
@@ -129,6 +172,7 @@ namespace GuitarApp.Controllers
 
             return RedirectToAction("Index", "Song");
         }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

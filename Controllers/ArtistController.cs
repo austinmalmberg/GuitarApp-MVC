@@ -2,9 +2,11 @@
 using GuitarApp.Models;
 using Microsoft.AspNet.Identity.Owin;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace GuitarApp.Controllers
 {
@@ -33,7 +35,19 @@ namespace GuitarApp.Controllers
             }
         }
 
+        // GET: /Artist/Browse
+        public ActionResult Browse()
+        {
+            var model = new BrowseArtistsViewModel
+            {
+                Artists = ArtistRepository.Get().ToList()
+            };
+
+            return View(model);
+        }
+
         // GET: /Artist/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -41,6 +55,7 @@ namespace GuitarApp.Controllers
 
         // POST: /Artist/Create
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateArtistViewModel model)
         {
@@ -50,7 +65,9 @@ namespace GuitarApp.Controllers
             }
 
             // Add a new artist
-            Artist artist = new Artist { Name = model.Name };
+            Artist artist = new Artist {
+                Name = model.Name,
+            };
 
             ArtistRepository.Insert(artist);
             ArtistRepository.Save();
@@ -63,8 +80,14 @@ namespace GuitarApp.Controllers
         public ActionResult Details(int id)
         {
             var artist = ArtistRepository.GetById(id);
+            if (artist == null)
+            {
+                return RedirectToAction("Index", "Home");
+            };
+
             var model = new ArtistDetailsViewModel
             {
+                ArtistID = artist.ArtistID,
                 Name = artist.Name,
                 Songs = artist.Songs
             };
@@ -73,8 +96,28 @@ namespace GuitarApp.Controllers
             return View(model);
         }
 
+        // GET: /Artist/Edit/5
+        [Authorize]
+        public ActionResult Edit(int id)
+        {
+            var artist = ArtistRepository.GetById(id);
+            if (artist == null)
+            {
+                return RedirectToAction("Index", "Home");
+            };
+
+            var model = new EditArtistViewModel
+            {
+                ArtistID = artist.ArtistID,
+                Name = artist.Name
+            };
+
+            return View(model);
+        }
+
         // POST: /Artist/Edit/5
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(EditArtistViewModel model)
         {
@@ -89,6 +132,7 @@ namespace GuitarApp.Controllers
                 ArtistID = model.ArtistID,
                 Name = model.Name
             };
+
             ArtistRepository.Update(artist);
             ArtistRepository.Save();
 
@@ -98,6 +142,7 @@ namespace GuitarApp.Controllers
 
         // DELETE: /Artist/Delete/5
         [HttpDelete]
+        [Authorize(Roles = "Administrator")]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
