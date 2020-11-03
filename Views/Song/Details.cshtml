@@ -4,44 +4,145 @@
     ViewBag.Title = "Details";
 }
 
-<div>
-    <h4>@Model.Name</h4>
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.SongID })
-    </p>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.LastUpdated)
-        </dt>
+<div class="container-fluid d-flex justify-content-between bg-secondary p-4 my-3 rounded">
+    <div>
+        <h1>@Html.DisplayFor(model => model.Name)</h1>
+        <h2>@Html.ActionLink(Model.ArtistName, "Details", "Artist", new { id = Model.ArtistID }, null)</h2>
+    </div>
+    <div class="d-flex flex-column align-items-end">
+        <p class="mb-auto">@Html.DisplayNameFor(model => model.LastUpdated) on @Html.DisplayFor(model => model.LastUpdated) by @Html.DisplayFor(model => model.Contributor)</p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.SongID }, new { @class = "btn btn-primary" })
+    </div>
+</div>
 
-        <dd>
-            @Html.DisplayFor(model => model.LastUpdated)
-        </dd>
+<div class="d-xl-flex my-3">
+    <div class="col-lg bg-secondary mr-xl-2 p-4 rounded">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Contributor)
-        </dt>
+        <div class="row">
+            @*Chord information*@
+            <details open class="col-md">
+                <summary class="h4">Chords</summary>
+                <dl class="row text-monospace">
+                    <dt class="col-6">Ab m7</dt>
+                    <dd class="col-6">4 x 4 4 0 x</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Contributor)
-        </dd>
+                    <dt class="col-6">B</dt>
+                    <dd class="col-6">7 9 9 8 0 0</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.BaseTuning)
-        </dt>
+                    <dt class="col-6">E</dt>
+                    <dd class="col-6">0 2 2 1 0 0</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.BaseTuning)
-        </dd>
+                    <dt class="col-6">E5</dt>
+                    <dd class="col-6">0 7 9 9 0 0</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CapoPosition)
-        </dt>
+                    <dt class="col-6">E*</dt>
+                    <dd class="col-6">4 x 2 4 5 x</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.CapoPosition)
-        </dd>
+                    <dt class="col-6">Gb</dt>
+                    <dd class="col-6">2 4 4 3 0 0</dd>
 
-    </dl>
+                    <dt class="col-6">Gb*</dt>
+                    <dd class="col-6">6 x 4 6 7 x</dd>
+                </dl>
+            </details>
+
+            @*Tuning Information*@
+            <details open class="col-md">
+                <summary class="h4">Tuning</summary>
+                <dl class="row">
+                    <dt class="col-6">
+                        @Html.DisplayNameFor(model => model.BaseTuning)
+                    </dt>
+                    <dd class="col-6">
+                        @Html.DisplayFor(model => model.BaseTuning)
+                    </dd>
+
+                    @*Capo Position*@
+                    @if (Model.CapoPosition > 0)
+                    {
+                    <dt class="col-6">
+                        @Html.DisplayNameFor(model => model.CapoPosition)
+                    </dt>
+                    <dd class="col-6">
+                        @Html.DisplayFor(model => model.CapoPosition)
+                    </dd>
+                    }
+                </dl>
+            </details>
+        </div>
+
+        @*Section information*@
+        <div>
+            <h3 class="mt-4 mb-3">Intro/Verse/Chorus/Fill</h3>
+            <pre class="h4">| B   | B   | E5  | E5  |</pre>
+            <pre class="h4">| B   | B   | Gb* | E*  |</pre>
+
+            <h3 class="mt-4 mb-3">Pre-Chorus</h3>
+            <p class="h5">And tell me that we belong together...</p>
+            <pre class="h4">|:B   | Gb* | E*  | Gb*:| x3</pre>
+
+            <p class="h5">Instead of the gallows of heartache...</p>
+            <pre class="h4">| B   | B   | Gb* | Gb* |</pre>
+            <pre class="h4">| E*  | E*  | Gb  | Gb  |</pre>
+            
+            <h3 class="mt-4 mb-3">Bridge</h3>
+            <p class="h5">Well I've dropped out, burned up...</p>
+            <pre class="h4">|:Ab m7 | Ab m7 | Gb   | Gb   |</pre>
+            <pre class="h4">| E     | E     | E    | E   :| x2</pre>
+            <p>* Alternate between 022100 and 022300</p>
+        </div>
+    </div>
+    <div class="col-lg bg-secondary ml-xl-2 p-4 rounded">
+        <h3>Lyrics</h3>
+
+        @*Lyrics*@
+        <details open>
+            <summary class="h5">Verse 1</summary>
+            <p>
+                To see you when I wake up, is a gift I didn't think could be real<br />
+                To know that you feel the same, as I do, is a three-fold utopian dream<br />
+            </p>
+        </details>
+
+        <details open>
+            <summary class="h5">Chorus 1</summary>
+            <p>
+                You do something to me<br />
+                That I can't explain<br />
+                So would I be out of line, If I said<br />
+                I miss you<br />
+            </p>
+        </details>
+
+        <details open>
+            <summary class="h5">Verse 2</summary>
+            <p>
+                I see your picture, I smell your skin on, the empty pillow next to mine<br />
+                You have only been gone ten days, but already I am wasting away<br />
+            </p>
+        </details>
+
+        <details open>
+            <summary class="h5">Chorus 2</summary>
+            <p>
+                I know I'll see you again<br />
+                Whether far or soon<br />
+                But I need you to know, that I care<br />
+                And I miss you<br />
+            </p>
+        </details>
+    </div>
+</div>
+
+<div class="container-fluid my-3 p-4 bg-secondary rounded">
+    <h3>References</h3>
+    <ul class="list-unstyled">
+        <li>
+            <a href="https://www.youtube.com/watch?v=5qrTmNDZ-nc" target="_blank">Edwin McCain - I'll Be (Official Music Video)</a>
+        </li>
+
+        <li>
+            <a href="https://www.youtube.com/watch?v=laU_KCmLYqA" target="_blank">Edwin McCain - I'll Be (Bing Lounge)</a>
+        </li>
+    </ul>
 </div>

@@ -4,16 +4,16 @@
     ViewBag.Title = "Details";
 }
 
-<h3>@Html.DisplayFor(model => model.Name)</h3>
-<p>@Html.ActionLink("Edit", "Edit", new { id = Model.ArtistID })</p>
-
-<ul class="list-group">
-@foreach (var song in Model.Songs)
-{
-    <li class="list-group-item">
-        @Html.ActionLink(song.Name, "Details", "Song", new { id = song.SongID }, null)
-    </li>
-}
+<div class="d-flex justify-content-between align-items-center">
+    <h1>@Html.DisplayFor(model => model.Name)</h1>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ArtistID }, new { @class = "btn btn-primary" })
+</div>
+<hr class="mb-4 bg-light" />
+<ul class="list-group my-3">
+    @foreach (var song in Model.Songs)
+    {
+        @Html.ActionLink(song.Name, "Details", "Song", new { id = song.SongID }, new { @class = "list-group-item list-group-item-action" })
+    }
 </ul>
 
-<p>@Html.ActionLink("Add Song", "Create", "Song", new { ArtistID = Model.ArtistID, ArtistName = Model.Name }, null)</p>
+@Html.ActionLink("Add Song", "Create", "Song", new { ArtistID = Model.ArtistID, ArtistName = Model.Name }, new { @class = "btn btn-primary my-3" })

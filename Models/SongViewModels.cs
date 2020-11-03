@@ -6,6 +6,11 @@ using System.Web;
 
 namespace GuitarApp.Models
 {
+    public class BrowseSongsViewModel
+    {
+        public ICollection<Song> Songs { get; set; }
+    }
+
     public class CreateSongViewModel
     {
         [Required]
@@ -34,6 +39,10 @@ namespace GuitarApp.Models
 
         [Display(Name = "Song Name")]
         public string Name { get; set; }
+
+        public int ArtistID { get; set; }
+
+        public string ArtistName { get; set; }
 
         [Display(Name = "Base Tuning")]
         public string BaseTuning { get; set; }

@@ -197,18 +197,6 @@
     <Compile Include="DataAccess\GenericRepository.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="DataAccess\SongRepository.cs" />
-    <Compile Include="Migrations\202010272245124_AddSetlists.cs" />
-    <Compile Include="Migrations\202010272245124_AddSetlists.Designer.cs">
-      <DependentUpon>202010272245124_AddSetlists.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202010281352300_AddArtistCreated.cs" />
-    <Compile Include="Migrations\202010281352300_AddArtistCreated.Designer.cs">
-      <DependentUpon>202010281352300_AddArtistCreated.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202010301811530_ChangeUserIdType.cs" />
-    <Compile Include="Migrations\202010301811530_ChangeUserIdType.Designer.cs">
-      <DependentUpon>202010301811530_ChangeUserIdType.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ArtistViewModels.cs" />
     <Compile Include="Models\AdminViewModels.cs" />
@@ -397,6 +385,8 @@
     <Content Include="Views\Song\Details.cshtml" />
     <Content Include="Views\Song\Edit.cshtml" />
     <Content Include="Views\Song\Create.cshtml" />
+    <Content Include="Views\Artist\Browse.cshtml" />
+    <Content Include="Views\Song\Browse.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -405,17 +395,6 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202010272245124_AddSetlists.resx">
-      <DependentUpon>202010272245124_AddSetlists.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010281352300_AddArtistCreated.resx">
-      <DependentUpon>202010281352300_AddArtistCreated.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202010301811530_ChangeUserIdType.resx">
-      <DependentUpon>202010301811530_ChangeUserIdType.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />

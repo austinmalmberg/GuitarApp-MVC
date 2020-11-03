@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace GuitarApp.Models
 {
     public class Artist
     {
-        // model properties
+        [Key]
         public int ArtistID { get; set; }
+
+        [Required]
         public string Name { get; set; }
+
         public DateTime Created { get; set; } = DateTime.Now;
 
-        // navigation properties
         public virtual ICollection<Song> Songs { get; set; }
     }
 }

@@ -23,8 +23,9 @@ namespace GuitarApp.Models
     {
         public virtual DbSet<Song> Songs { get; set; }
         public virtual DbSet<Artist> Artists { get; set; }
-        public virtual DbSet<SetlistEntry> SetlistEntries { get; set; }
-        public virtual DbSet<Setlist> Setlists { get; set; }
+        // public virtual DbSet<SetlistEntry> SetlistEntries { get; set; }
+        // public virtual DbSet<Setlist> Setlists { get; set; }
+
         public ApplicationDbContext() : base("DefaultConnection", throwIfV1Schema: false) { }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

@@ -6,6 +6,11 @@ using System.Web;
 
 namespace GuitarApp.Models
 {
+    public class BrowseArtistsViewModel
+    {
+        public ICollection<Artist> Artists { get; set; }
+    }
+
     public class CreateArtistViewModel
     {
         [Required]

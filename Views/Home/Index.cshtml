@@ -4,22 +4,33 @@
 }
 
 <div class="jumbotron">
-    <h1>Welcome</h1>
-    <p class="lead"></p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>Welcome to TabWiki</h1>
+    <p class="lead">Your new home for all the best tabs in an easy-to-read format.</p>
+    <hr class="my-4 bg-light" />
+    <p>This is a Wiki so you're encouraged to collaborate with fellow users to make tabs as accurate as possible. Start by registering below!</p>
+    @Html.ActionLink("Register", "Register", "Account", null, new { @class = "btn btn-primary btn-lg" })
 </div>
 
 <div class="row">
-    <div class="col-md">
-        <h2>Popular Artists</h2>
+    <div class="col-lg">
+        <div class="d-flex justify-content-between align-items-center mt-3 mb-2">
+            <h3>Popular Artists</h3>
+            @Html.ActionLink("Browse All", "Browse", "Artist", null, new { @class = "btn btn-primary" })
+        </div>
         <div class="list-group">
         @foreach (var artist in Model.Artists) {
-            @Html.ActionLink(artist.Name, "Details", "Artist", new { id = artist.ArtistID }, new { @class = "list-group-item list-group-item-action" })
+            <a class="d-flex justify-content-between align-items-center list-group-item list-group-item-action" href="@Url.Action("Details", "Artist", new { id = artist.ArtistID })">
+                @artist.Name
+                <span class="badge badge-primary badge-pill">@artist.Songs.Count</span>
+            </a>
         }
         </div>
     </div>
-    <div class="col-md">
-        <h2>Popular Songs</h2>
+    <div class="col-lg">
+        <div class="d-flex justify-content-between align-items-center mt-3 mb-2">
+            <h3>Popular Songs</h3>
+            @Html.ActionLink("Browse All", "Browse", "Song", null, new { @class = "btn btn-primary" })
+        </div>
         <div class="list-group">
         @foreach (var song in Model.Songs) {
             @Html.ActionLink(song.Name, "Details", "Song", new { id = song.SongID }, new { @class = "list-group-item list-group-item-action" })

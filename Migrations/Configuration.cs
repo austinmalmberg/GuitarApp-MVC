@@ -10,7 +10,6 @@ namespace GuitarApp.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            ContextKey = "GuitarApp.Models.ApplicationDbContext";
         }
 
         protected override void Seed(GuitarApp.Models.ApplicationDbContext context)

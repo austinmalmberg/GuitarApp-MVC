@@ -8,24 +8,32 @@
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
-<body>
-    <div class="container">
-        <nav class="navbar navbar-expand-sm bg-light navbar-light">
-            <div class="container">
-                @Html.ActionLink("Setlist", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.Partial("_LoginPartial")
-            </div>
-        </nav>
+<body class="container-fluid p-0 m-0 row">
+    <div id="sidebar" class="sticky-top col-md-2 col-xl-1">
+        <div class="sticky-top">
+            @*Brand*@
+            @Html.ActionLink("TabWiki", "Index", "Home", null, new { @class = "navbar-brand py-4" })
+
+            @*Navigational content goes here*@
+            <ul class="list-unstyled">
+                <li>@Html.ActionLink("About", "About", "Home")</li>
+                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+            </ul>
+        </div>
     </div>
-    <div class="container body-content">
+
+    <div class="body-content col">
+        @*Login/nav header*@
+        @Html.Partial("_LoginPartial")
+
+        @*Main content*@
         @RenderBody()
-        <hr />
-        <footer class="bg-light px-2 py-3">
-            <div class="container d-flex flex-column">
-                <p>@Html.ActionLink("About", "About", "Home", null, new { @class = "" })</p>
-                <p>@Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "" })</p>
-            </div>
-            <p class="text-center">&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+
+        <hr class="my-4 bg-light" />
+
+        @*Footer*@
+        <footer class="container-fluid text-center my-3 py-3">
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
 
