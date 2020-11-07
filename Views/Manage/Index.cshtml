@@ -3,13 +3,11 @@
     ViewBag.Title = "Account";
 }
 
-<h2>@ViewBag.Title</h2>
-
-<p class="text-success">@ViewBag.StatusMessage</p>
 <div>
-    <h4>Change your account settings</h4>
-    <hr />
+    <h1>@ViewBag.Title</h1>
+    <hr class="mb-4 bg-light" />
     <dl class="row">
+        <p class="text-success">@ViewBag.StatusMessage</p>
         <dt class="col-md-2">Username:</dt>
         <dd class="col-md-10">@Model.Email</dd>
 

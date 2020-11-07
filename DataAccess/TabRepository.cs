@@ -5,16 +5,15 @@ using System.Collections.Generic;
 
 namespace GuitarApp.DataAccess
 {
-    public class SongRepository : GenericRepository<Song>, IDisposable
+    public class TabRepository : GenericRepository<Tab>, IDisposable
     {
-
-        public SongRepository(ApplicationDbContext context) : base(context)
+        public TabRepository(ApplicationDbContext context) : base(context)
         {
         }
 
-        public IEnumerable<Song> LookupByName(string name)
+        public IEnumerable<Tab> GetRevisions(int songId)
         {
-            return Get(s => s.Name.Contains(name));
+            return Get(t => t.SongID == songId);
         }
 
         public void Dispose(bool disposing)

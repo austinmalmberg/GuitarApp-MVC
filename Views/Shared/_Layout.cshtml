@@ -12,7 +12,7 @@
     <div id="sidebar" class="sticky-top col-md-2 col-xl-1">
         <div class="sticky-top">
             @*Brand*@
-            @Html.ActionLink("TabWiki", "Index", "Home", null, new { @class = "navbar-brand py-4" })
+            @Html.ActionLink("TabWiki", "Index", "Home", null, new { @class = "navbar-brand py-4 w-100" })
 
             @*Navigational content goes here*@
             <ul class="list-unstyled">
@@ -23,8 +23,14 @@
     </div>
 
     <div class="body-content col">
-        @*Login/nav header*@
-        @Html.Partial("_LoginPartial")
+        <nav class="navbar navbar-expand-sm navbar-dark bg-primary mb-3">
+            <ul class="nav nav-pills">
+                <li class="nav-item">@Html.ActionLink("Browse Artists", "Browse", "Artist", null, new { @class = "nav-link" })</li>
+            </ul>
+
+            @*Login/nav header*@
+            @Html.Partial("_LoginPartial")
+        </nav>
 
         @*Main content*@
         @RenderBody()

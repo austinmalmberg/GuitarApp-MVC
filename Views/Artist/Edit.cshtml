@@ -7,7 +7,7 @@
 @using (Html.BeginForm("Edit", "Artist", FormMethod.Post, new { role = "form" })) 
 {
     @Html.AntiForgeryToken()
-    <h2>@ViewBag.Title</h2>
+    <h1>@ViewBag.Title</h1>
     <hr class="mb-4 bg-light" />
     
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -19,7 +19,7 @@
         </div>
     </div>
 
-    <input type="submit" value="Save" class="btn btn-primary btn-lg" />
+    <input type="submit" value="Save" class="btn btn-info btn-lg" />
 }
 
 @section Scripts {

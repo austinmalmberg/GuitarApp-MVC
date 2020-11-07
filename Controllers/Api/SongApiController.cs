@@ -1,13 +1,14 @@
 ﻿using GuitarApp.Models;
+using GuitarApp.Models.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
-namespace GuitarApp.Controllers
+namespace GuitarApp.Controllers.Api
 {
     public class SongApiController : ApiController
     {
-        ApplicationDbContext _context = new ApplicationDbContext();
+        readonly ApplicationDbContext _context = new ApplicationDbContext();
 
         // GET: Song
         public List<Song> AllSongs()

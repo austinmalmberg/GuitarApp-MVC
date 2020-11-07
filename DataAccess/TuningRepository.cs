@@ -1,20 +1,19 @@
 ﻿using GuitarApp.Models;
 using GuitarApp.Models.Entities;
 using System;
-using System.Collections.Generic;
+using System.Linq;
 
 namespace GuitarApp.DataAccess
 {
-    public class SongRepository : GenericRepository<Song>, IDisposable
+    public class TuningRepository : GenericRepository<Tuning>, IDisposable
     {
-
-        public SongRepository(ApplicationDbContext context) : base(context)
+        public TuningRepository(ApplicationDbContext context) : base(context)
         {
         }
 
-        public IEnumerable<Song> LookupByName(string name)
+        public Tuning GetByValue(string baseTuning)
         {
-            return Get(s => s.Name.Contains(name));
+            return Get(tab => tab.BaseTuning == baseTuning).FirstOrDefault();
         }
 
         public void Dispose(bool disposing)

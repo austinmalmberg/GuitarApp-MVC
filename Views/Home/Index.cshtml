@@ -8,20 +8,20 @@
     <p class="lead">Your new home for all the best tabs in an easy-to-read format.</p>
     <hr class="my-4 bg-light" />
     <p>This is a Wiki so you're encouraged to collaborate with fellow users to make tabs as accurate as possible. Start by registering below!</p>
-    @Html.ActionLink("Register", "Register", "Account", null, new { @class = "btn btn-primary btn-lg" })
+    @Html.ActionLink("Register", "Register", "Account", null, new { @class = "btn btn-info btn-lg" })
 </div>
 
 <div class="row">
     <div class="col-lg">
         <div class="d-flex justify-content-between align-items-center mt-3 mb-2">
             <h3>Popular Artists</h3>
-            @Html.ActionLink("Browse All", "Browse", "Artist", null, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Browse All", "Browse", "Artist", null, new { @class = "btn btn-info" })
         </div>
         <div class="list-group">
         @foreach (var artist in Model.Artists) {
             <a class="d-flex justify-content-between align-items-center list-group-item list-group-item-action" href="@Url.Action("Details", "Artist", new { id = artist.ArtistID })">
                 @artist.Name
-                <span class="badge badge-primary badge-pill">@artist.Songs.Count</span>
+                <span class="badge badge-info badge-pill">@artist.Songs.Count</span>
             </a>
         }
         </div>
@@ -29,7 +29,7 @@
     <div class="col-lg">
         <div class="d-flex justify-content-between align-items-center mt-3 mb-2">
             <h3>Popular Songs</h3>
-            @Html.ActionLink("Browse All", "Browse", "Song", null, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Browse All", "Browse", "Song", null, new { @class = "btn btn-info" })
         </div>
         <div class="list-group">
         @foreach (var song in Model.Songs) {

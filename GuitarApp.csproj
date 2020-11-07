@@ -193,25 +193,36 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\Api\SongApiController.cs" />
     <Compile Include="Controllers\SongController.cs" />
+    <Compile Include="Controllers\TabController.cs" />
     <Compile Include="DataAccess\ArtistRepository.cs" />
     <Compile Include="DataAccess\GenericRepository.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="DataAccess\SongRepository.cs" />
+    <Compile Include="DataAccess\TabRepository.cs" />
+    <Compile Include="DataAccess\TuningRepository.cs" />
+    <Compile Include="Migrations\202011070353001_AddedTabsAndTuning.cs" />
+    <Compile Include="Migrations\202011070353001_AddedTabsAndTuning.Designer.cs">
+      <DependentUpon>202011070353001_AddedTabsAndTuning.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ArtistViewModels.cs" />
     <Compile Include="Models\AdminViewModels.cs" />
     <Compile Include="Models\Entities\Artist.cs" />
-    <Compile Include="Models\Entities\Setlist.cs" />
+    <Compile Include="Models\Entities\unused_Setlist.cs" />
     <Compile Include="Models\Entities\Song.cs" />
-    <Compile Include="Models\Entities\SetlistEntry.cs" />
+    <Compile Include="Models\Entities\unused_SetlistEntry.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Entities\Tab.cs" />
+    <Compile Include="Models\Entities\Tuning.cs" />
     <Compile Include="Models\HomeViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\SongViewModels.cs" />
+    <Compile Include="Models\TabViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -380,16 +391,16 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Admin\Songs.cshtml" />
     <Content Include="Views\Admin\Users.cshtml" />
     <Content Include="Views\Song\Details.cshtml" />
     <Content Include="Views\Song\Edit.cshtml" />
     <Content Include="Views\Song\Create.cshtml" />
     <Content Include="Views\Artist\Browse.cshtml" />
-    <Content Include="Views\Song\Browse.cshtml" />
+    <Content Include="Views\Song\_TabDetailsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Tab\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -401,6 +412,11 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202011070353001_AddedTabsAndTuning.resx">
+      <DependentUpon>202011070353001_AddedTabsAndTuning.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

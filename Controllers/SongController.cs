@@ -1,11 +1,8 @@
 ﻿using GuitarApp.DataAccess;
 using GuitarApp.Models;
+using GuitarApp.Models.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -14,14 +11,18 @@ namespace GuitarApp.Controllers
     public class SongController : Controller
     {
         private SongRepository _songRepository;
+        private TabRepository _tabRepository;
+        private ArtistRepository _artistRepository;
 
         public SongController()
         {
         }
 
-        public SongController(SongRepository songRepository)
+        public SongController(SongRepository songRepository, ArtistRepository artistRepository, TabRepository tabRepository)
         {
             _songRepository = songRepository;
+            _artistRepository = artistRepository;
+            _tabRepository = tabRepository;
         }
 
         public SongRepository SongRepository
@@ -35,28 +36,47 @@ namespace GuitarApp.Controllers
                 _songRepository = value;
             }
         }
-
-        public ActionResult Browse()
+        public ArtistRepository ArtistRepository
         {
-            var model = new BrowseSongsViewModel
+            get
             {
-                Songs = SongRepository.Get().ToList()
-            };
+                return _artistRepository ?? new ArtistRepository(HttpContext.GetOwinContext().Get<ApplicationDbContext>());
+            }
+            private set
+            {
+                _artistRepository = value;
+            }
+        }
 
-            return View(model);
+        public TabRepository TabRepository
+        {
+            get
+            {
+                return _tabRepository ?? new TabRepository(HttpContext.GetOwinContext().Get<ApplicationDbContext>());
+            }
+            private set
+            {
+                _tabRepository = value;
+            }
         }
 
         // GET: /Song/Create
         [Authorize]
-        public ActionResult Create(int? artistId, string artistName)
+        public ActionResult Create(int artistId)
         {
-            if (artistId != null)
+            Artist artist = ArtistRepository.GetById(artistId);
+            if (artist == null)
             {
-                var model = new CreateSongViewModel { ArtistID = (int) artistId, ArtistName = artistName };
-                return View(model);
+                return new HttpNotFoundResult("Invalid artist ID.");
             }
 
-            return View();
+            var model = new CreateSongViewModel
+            {
+                ArtistID = artistId,
+                ArtistName = artist.Name
+            };
+
+            return View(model);
         }
 
         // POST: /Song/Create
@@ -72,62 +92,54 @@ namespace GuitarApp.Controllers
 
             Song song = new Song
             {
-                Name = model.Name,
-                BaseTuning = model.BaseTuning,
-                CapoPosition = model.CapoPosition,
+                Name = model.SongName,
                 ArtistID = model.ArtistID,
-                ContributorID = User.Identity.GetUserId(),
+                Lyrics = model.Lyrics
             };
 
-            // Add a new song
             SongRepository.Insert(song);
             SongRepository.Save();
 
             // Redirect to the newly created song
-            return RedirectToAction("Details", "Song", new { id = song.SongID });
+            return RedirectToAction("Details", "Song", new { songId = song.SongID });
         }
 
         // GET: /Song/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int songId, int? tabId)
         {
-            var song = SongRepository.GetById(id);
+            var song = SongRepository.GetById(songId);
             if (song == null)
             {
-                return RedirectToAction("Index", "Home");
+                return new HttpNotFoundResult("Invalid song ID");
             }
 
             var model = new SongDetailsViewModel
             {
                 SongID = song.SongID,
-                Name = song.Name,
-                ArtistID = song.Artist.ArtistID,
+                SongName = song.Name,
                 ArtistName = song.Artist.Name,
-                BaseTuning = song.BaseTuning,
-                CapoPosition = song.CapoPosition,
-                LastUpdated = song.LastUpdated,
-                Contributor = song.Contributor.UserName
+                Tabs = song.Tabs,
+                ActiveTabID = tabId
             };
 
-            // Return the song with the given id
             return View(model);
         }
 
         // GET: /Song/Edit/5
         [Authorize]
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int songId)
         {
-            Song song = SongRepository.GetById(id);
+            Song song = SongRepository.GetById(songId);
             if (song == null)
             {
-                return RedirectToAction("Index", "Home");
+                return new HttpNotFoundResult("Invalid song ID");
             }
 
             var model = new EditSongViewModel
             {
                 SongID = song.SongID,
-                Name = song.Name,
-                BaseTuning = song.BaseTuning,
-                CapoPosition = song.CapoPosition
+                SongName = song.Name,
+                Lyrics = song.Lyrics
             };
 
             return View(model);
@@ -139,38 +151,39 @@ namespace GuitarApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(EditSongViewModel model)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View();
+                Song song = SongRepository.GetById(model.SongID);
+                if (song != null)
+                {
+                    song.Name = model.SongName;
+                    song.Lyrics = model.Lyrics;
+                    SongRepository.Save();
+
+                    // Redirect to the updated song
+                    return RedirectToAction("Details", "Song", new { songId = song.SongID });
+                }
             }
 
-            Song song = new Song
-            {
-                SongID = model.SongID,
-                Name = model.Name,
-                BaseTuning = model.BaseTuning,
-                CapoPosition = model.CapoPosition,
-                ContributorID = User.Identity.GetUserId(),
-                LastUpdated = DateTime.Now
-            };
-
-            SongRepository.Update(song);
-            SongRepository.Save();
-
-            // Redirect to the updated song
-            return RedirectToAction("Details", "Song", new { id = song.SongID });
+            return View();
         }
 
         // DELETE: /Song/Delete/5
         [HttpDelete]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int songId)
         {
-            SongRepository.Delete(id);
+            Song song = SongRepository.GetById(songId);
+            if (song == null)
+            {
+                return new HttpNotFoundResult("Invalid song ID");
+            }
+
+            SongRepository.Delete(song);
             SongRepository.Save();
 
-            return RedirectToAction("Index", "Song");
+            return RedirectToAction("Index", "Home");
         }
 
         protected override void Dispose(bool disposing)

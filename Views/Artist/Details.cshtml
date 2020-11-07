@@ -6,7 +6,7 @@
 
 <div class="d-flex justify-content-between align-items-center">
     <h1>@Html.DisplayFor(model => model.Name)</h1>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ArtistID }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ArtistID }, new { @class = "btn btn-info" })
 </div>
 <hr class="mb-4 bg-light" />
 <ul class="list-group my-3">
@@ -16,4 +16,4 @@
     }
 </ul>
 
-@Html.ActionLink("Add Song", "Create", "Song", new { ArtistID = Model.ArtistID, ArtistName = Model.Name }, new { @class = "btn btn-primary my-3" })
+@Html.ActionLink("Add Song", "Create", "Song", new { ArtistID = Model.ArtistID, ArtistName = Model.Name }, new { @class = "btn btn-info my-3" })

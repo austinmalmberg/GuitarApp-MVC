@@ -1,8 +1,6 @@
-﻿using System;
+﻿using GuitarApp.Models.Entities;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace GuitarApp.Models
 {

@@ -1,6 +1,6 @@
 ﻿using GuitarApp.DataAccess;
 using GuitarApp.Models;
-using Microsoft.AspNet.Identity;
+using GuitarApp.Models.Entities;
 using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
@@ -79,27 +79,17 @@ namespace GuitarApp.Controllers
             return View(model);
         }
 
-        public ActionResult Artists(string nameSubstring)
+        public ActionResult Artists(string contains)
         {
-            IEnumerable<Artist> artists = String.IsNullOrEmpty(nameSubstring) ?
+            IEnumerable<Artist> artists = String.IsNullOrEmpty(contains) ?
                 ArtistRepository.Get() :
-                ArtistRepository.LookupByName(nameSubstring);
+                ArtistRepository.LookupByName(contains);
 
             var model = new BrowseArtistsViewModel() { Artists = artists.ToList() };
 
             return View(model);
         }
 
-        public ActionResult Songs(string songSubstring)
-        {
-            IEnumerable<Song> songs = String.IsNullOrEmpty(songSubstring) ?
-                SongRepository.Get() :
-                SongRepository.LookupByName(songSubstring);
-
-            var model = new BrowseSongsViewModel() { Songs = songs.ToList() };
-
-            return View(model);
-        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

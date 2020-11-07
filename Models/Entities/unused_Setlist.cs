@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GuitarApp.Models
+namespace GuitarApp.Models.Entities
 {
     public class Setlist
     {
@@ -17,9 +17,9 @@ namespace GuitarApp.Models
         public DateTime LastUpdated { get; set; } = DateTime.Now;
 
         [Required]
+        [ForeignKey("User")]
         public string UserID { get; set; }
 
-        [ForeignKey("UserID")]
         public virtual ApplicationUser User { get; set; }
 
         public virtual ICollection<SetlistEntry> SetlistEntries { get; set; }

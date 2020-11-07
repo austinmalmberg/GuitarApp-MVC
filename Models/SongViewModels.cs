@@ -1,22 +1,15 @@
-﻿using System;
+﻿using GuitarApp.Models.Entities;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace GuitarApp.Models
 {
-    public class BrowseSongsViewModel
-    {
-        public ICollection<Song> Songs { get; set; }
-    }
-
     public class CreateSongViewModel
     {
         [Required]
         [StringLength(100)]
         [Display(Name = "Song Name")]
-        public string Name { get; set; }
+        public string SongName { get; set; }
 
         [Required]
         public int ArtistID { get; set; }
@@ -24,23 +17,15 @@ namespace GuitarApp.Models
         [Display(Name = "Artist Name")]
         public string ArtistName { get; set; }
 
-        [Required]
-        [StringLength(12)]
-        [Display(Name = "Base Tuning")]
-        public string BaseTuning { get; set; }
-
-        [Required]
-        [Display(Name = "Capo Position")]
-        public int CapoPosition { get; set; }
+        public string Lyrics { get; set; }
     }
+
     public class SongDetailsViewModel
     {
         public int SongID { get; set; }
 
         [Display(Name = "Song Name")]
-        public string Name { get; set; }
-
-        public int ArtistID { get; set; }
+        public string SongName { get; set; }
 
         public string ArtistName { get; set; }
 
@@ -50,29 +35,20 @@ namespace GuitarApp.Models
         [Display(Name = "Capo Position")]
         public int CapoPosition { get; set; }
 
-        [Display(Name = "Last Updated")]
-        public DateTime LastUpdated { get; set; }
+        public ICollection<Tab> Tabs { get; set; }
 
-        public string Contributor { get; set; }
+        public int? ActiveTabID { get; set; }
     }
 
     public class EditSongViewModel
     {
+        [Required]
         public int SongID { get; set; }
 
-        [Required]
         [StringLength(100)]
         [Display(Name = "Song Name")]
-        public string Name { get; set; }
+        public string SongName { get; set; }
 
-        [Required]
-        [StringLength(20)]
-        [Display(Name = "Base Tuning")]
-        public string BaseTuning { get; set; }
-
-        [Required]
-        [Range(0, 24, ErrorMessage = "Range must be between {0} and {1}.")]
-        [Display(Name = "Capo Position")]
-        public int CapoPosition { get; set; }
+        public string Lyrics { get; set; }
     }
 }

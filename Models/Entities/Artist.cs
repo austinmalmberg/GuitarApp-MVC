@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace GuitarApp.Models
+namespace GuitarApp.Models.Entities
 {
     public class Artist
     {
@@ -11,6 +11,12 @@ namespace GuitarApp.Models
 
         [Required]
         public string Name { get; set; }
+
+        public string WebsiteUrl { get; set; }
+
+        public string WikipediaUrl { get; set; }
+
+        public string ImageUrl { get; set; }
 
         public DateTime Created { get; set; } = DateTime.Now;
 

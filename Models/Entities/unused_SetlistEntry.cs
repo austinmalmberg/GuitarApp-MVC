@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace GuitarApp.Models
+namespace GuitarApp.Models.Entities
 {
     public class SetlistEntry
     {
@@ -17,15 +17,15 @@ namespace GuitarApp.Models
         public DateTime LastPlayed { get; set; } = DateTime.Now;
 
         [Required]
+        [ForeignKey("User")]
         public string UserID { get; set; }
 
-        [ForeignKey("UserID")]
         public virtual ApplicationUser User { get; set; }
 
         [Required]
+        [ForeignKey("Song")]
         public int SongID { get; set; }
 
-        [ForeignKey("SongID")]
         public virtual Song Song { get; set; }
     }
 }

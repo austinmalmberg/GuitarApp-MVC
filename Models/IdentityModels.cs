@@ -1,9 +1,7 @@
-﻿using System.Configuration;
-using System.Data.Entity;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace GuitarApp.Models
 {
@@ -16,26 +14,6 @@ namespace GuitarApp.Models
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
             return userIdentity;
-        }
-    }
-
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
-    {
-        public virtual DbSet<Song> Songs { get; set; }
-        public virtual DbSet<Artist> Artists { get; set; }
-        // public virtual DbSet<SetlistEntry> SetlistEntries { get; set; }
-        // public virtual DbSet<Setlist> Setlists { get; set; }
-
-        public ApplicationDbContext() : base("DefaultConnection", throwIfV1Schema: false) { }
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-        }
-
-        public static ApplicationDbContext Create()
-        {
-            return new ApplicationDbContext();
         }
     }
 }

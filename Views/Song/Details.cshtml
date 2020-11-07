@@ -1,4 +1,4 @@
-﻿@model GuitarApp.Models.SongDetailsViewModel
+﻿@model SongDetailsViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -8,10 +8,6 @@
     <div>
         <h1>@Html.DisplayFor(model => model.Name)</h1>
         <h2>@Html.ActionLink(Model.ArtistName, "Details", "Artist", new { id = Model.ArtistID }, null)</h2>
-    </div>
-    <div class="d-flex flex-column align-items-end">
-        <p class="mb-auto">@Html.DisplayNameFor(model => model.LastUpdated) on @Html.DisplayFor(model => model.LastUpdated) by @Html.DisplayFor(model => model.Contributor)</p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.SongID }, new { @class = "btn btn-primary" })
     </div>
 </div>
 
@@ -71,26 +67,8 @@
             </details>
         </div>
 
-        @*Section information*@
-        <div>
-            <h3 class="mt-4 mb-3">Intro/Verse/Chorus/Fill</h3>
-            <pre class="h4">| B   | B   | E5  | E5  |</pre>
-            <pre class="h4">| B   | B   | Gb* | E*  |</pre>
-
-            <h3 class="mt-4 mb-3">Pre-Chorus</h3>
-            <p class="h5">And tell me that we belong together...</p>
-            <pre class="h4">|:B   | Gb* | E*  | Gb*:| x3</pre>
-
-            <p class="h5">Instead of the gallows of heartache...</p>
-            <pre class="h4">| B   | B   | Gb* | Gb* |</pre>
-            <pre class="h4">| E*  | E*  | Gb  | Gb  |</pre>
-            
-            <h3 class="mt-4 mb-3">Bridge</h3>
-            <p class="h5">Well I've dropped out, burned up...</p>
-            <pre class="h4">|:Ab m7 | Ab m7 | Gb   | Gb   |</pre>
-            <pre class="h4">| E     | E     | E    | E   :| x2</pre>
-            <p>* Alternate between 022100 and 022300</p>
-        </div>
+        @*Tab information*@
+        @Html.Partial("_TabDetailsPartial", Model.TabDetailsVM);
     </div>
     <div class="col-lg bg-secondary ml-xl-2 p-4 rounded">
         <h3>Lyrics</h3>

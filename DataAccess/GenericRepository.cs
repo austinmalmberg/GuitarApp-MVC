@@ -1,14 +1,9 @@
 ﻿using GuitarApp.Models;
-using Microsoft.Ajax.Utilities;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Web;
-using System.Web.Helpers;
 
 namespace GuitarApp.DataAccess
 {
@@ -66,7 +61,7 @@ namespace GuitarApp.DataAccess
 
         public virtual void Delete(object id)
         {
-            TEntity entity = _dbSet.Find(id);
+            TEntity entity = GetById(id);
             Delete(entity);
         }
 

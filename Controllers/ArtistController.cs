@@ -1,12 +1,10 @@
 ﻿using GuitarApp.DataAccess;
 using GuitarApp.Models;
+using GuitarApp.Models.Entities;
 using Microsoft.AspNet.Identity.Owin;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
 
 namespace GuitarApp.Controllers
 {
@@ -65,7 +63,8 @@ namespace GuitarApp.Controllers
             }
 
             // Add a new artist
-            Artist artist = new Artist {
+            Artist artist = new Artist
+            {
                 Name = model.Name,
             };
 
@@ -149,8 +148,6 @@ namespace GuitarApp.Controllers
             // Delete the artist with the corresponding id
             ArtistRepository.Delete(id);
             ArtistRepository.Save();
-
-            // if (result.Success) { }
 
             // Redirect to the artist list
             return RedirectToAction("Index", "Artist");
